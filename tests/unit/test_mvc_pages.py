@@ -9,7 +9,7 @@ from html_page.floating_error import FloatingError
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from html_page.test_row import TestRow
+from html_page.row import Row
 from tests.unit.helper import get_random_number, get_random_string
 
 
@@ -85,8 +85,8 @@ def test_archive_row():
     soup = BeautifulSoup(str(archive_row), "html.parser")
     assert soup.find("a", href=f"#list-item-{acount}")
     assert soup.find("i")["class"] == ["fa", f"fa-{astate}"]
-    assert soup.findAll("span")[0].text.strip() == astatus
-    assert soup.findAll("span")[1].text.strip() == adate
+    assert soup.find_all("span")[0].text.strip() == astatus
+    assert soup.find_all("span")[1].text.strip() == adate
 
 
 def test_floating_error():
@@ -124,8 +124,8 @@ def test_screenshot_details():
     assert screenshot_link["data-caption"] == f"SUITE: {ts} :: SCENARIO: {tc}"
 
     tc_row = soup.find(class_="video-hover-desc video-hover-small")
-    assert tc_row.findAll("span")[0].text.strip() == tc
-    assert tc_row.findAll("span")[1].text.strip() == te
+    assert tc_row.find_all("span")[0].text.strip() == tc
+    assert tc_row.find_all("span")[1].text.strip() == te
 
     ts_p = soup.find("p", class_="text-desc")
     assert re.search(rf"{ts}[\n\s]+{te}", ts_p.text.strip()), ts_p.text.strip()
@@ -152,7 +152,7 @@ def test_suite_row():
     )
 
     soup = BeautifulSoup(str(suite_row), "html.parser")
-    for node, expected in zip(soup.findAll("td"), [sname, spass, sfail, sskip, sxpass, sxfail, serror, srerun]):
+    for node, expected in zip(soup.find_all("td"), [sname, spass, sfail, sskip, sxpass, sxfail, serror, srerun]):
         assert node.text.strip() == expected
 
 
@@ -164,10 +164,10 @@ def test_test_row():
     msg = get_random_string()
     floating_error_text = get_random_string()
 
-    test_row = TestRow(sname=sname, name=name, stat=stat, dur=dur, msg=msg, floating_error_text=floating_error_text)
+    test_row = Row(sname=sname, name=name, stat=stat, dur=dur, msg=msg, floating_error_text=floating_error_text)
     soup = BeautifulSoup(str(test_row), "html.parser")
 
-    cells = soup.findAll("td")
+    cells = soup.find_all("td")
 
     for node, expected in zip(cells[:-1], [sname, name, stat, dur]):
         assert node.text.strip() == expected
@@ -258,7 +258,7 @@ def test_template():
 
     # Checking if code-behind parts are really interpolated
 
-    last_style_block = soup.findAll("style")[-1]
+    last_style_block = soup.find_all("style")[-1]
     style_block = f""".progress-bar.downloading {{
                     background: -webkit-linear-gradient(left, #fc6665 {max_failure_percent}%,#50597b {max_failure_percent}%); /* Chrome10+,Safari5.1+ */
                     background: -ms-linear-gradient(left, #fc6665 {max_failure_percent}%,#50597b {max_failure_percent}%); /* IE10+ */
@@ -282,7 +282,7 @@ def test_template():
     total_count = soup.find("span", class_="total__count")
     assert total_count.text.strip() == total
 
-    test_metrics = soup.findAll("div", class_="footer-section__data")
+    test_metrics = soup.find_all("div", class_="footer-section__data")
     for metric, val in zip(test_metrics, (_pass, fail, skip, xpass, xfail, error, rerun)):
         assert metric.text.strip() == val
 
@@ -301,7 +301,7 @@ def test_template():
         == f"{max_failure_suite_count} /{max_failure_total_tests} Times"
     )
 
-    suite_metrics_table = soup.findAll("table", id="sm")
+    suite_metrics_table = soup.find_all("table", id="sm")
 
     for tbl in suite_metrics_table:
         assert tbl.find("tbody").text.strip() == suite_metrics_row
@@ -309,13 +309,13 @@ def test_template():
     archive_status_label = soup.find("div", id="list-example")
     assert archive_status_label.text.strip() == archive_status
 
-    archive_body_content_label = soup.find("div", id="archives").findAll("div")[-1]
+    archive_body_content_label = soup.find("div", id="archives").find_all("div")[-1]
     assert archive_body_content_label.text.strip() == archive_body_content
 
     attach_screenshot_details_label = soup.find("div", id="main-content").find("div").find("div")
     assert attach_screenshot_details_label.text.strip() == attach_screenshot_details
 
-    scripts = soup.findAll("script")
+    scripts = soup.find_all("script")
     assert [script for script in scripts if f"var x = parseInt({total});" in script.text]
     assert [
         script for script in scripts if f"data: [{_pass}, {fail}, {skip}, {xpass}, {xfail}, {error}]," in script.text

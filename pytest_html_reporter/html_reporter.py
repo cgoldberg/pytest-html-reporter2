@@ -15,7 +15,7 @@ from html_page.floating_error import FloatingError
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from html_page.test_row import TestRow
+from html_page.row import Row
 from pytest_html_reporter.const_vars import ConfigVars
 from pytest_html_reporter.time_converter import time_converter
 from pytest_html_reporter.util import generate_suite_highlights, max_rerun, suite_highlights
@@ -228,7 +228,7 @@ class HTMLReporter(object):
 
     def append_test_metrics_row(self):
 
-        test_row_text = TestRow(
+        test_row_text = Row(
             sname=str(ConfigVars._suite_name),
             name=str(ConfigVars._test_name),
             stat=str(ConfigVars._test_status),
