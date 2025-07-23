@@ -1,14 +1,15 @@
-import sys
 import os
+import sys
 
 myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + '/../../')
-from pytest_html_reporter.time_converter import *
-import datetime
+sys.path.insert(0, myPath + "/../../")
+import datetime  # noqa
+
+from pytest_html_reporter.time_converter import clamp_to_twelve, is_midnight, time_converter  # noqa
 
 
 def test_time_converter():
-    if time_converter("18:31") == '6:31 pm':
+    if time_converter("18:31") == "6:31 pm":
         pass
     else:
         raise Exception("invalid method: time_converter")

@@ -36,10 +36,8 @@ def pytest_configure(config):
 
     title = config.getoption("title")
     custom_title(title)
-    
+
     archive_count = config.getoption("archive_count")
 
     config._html = HTMLReporter(path, archive_count, config)
     config.pluginmanager.register(config._html)
-
-
