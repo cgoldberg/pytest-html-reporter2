@@ -99,7 +99,7 @@ class HTMLReporter(object):
     def pytest_terminal_summary(self, terminalreporter, exitstatus, config):
 
         yield
-        _execution_time = time.time() - terminalreporter._sessionstarttime
+        _execution_time = time.time() - terminalreporter._session_start.time
 
         if ConfigVars._execution_time < 60:
             ConfigVars._execution_time = str(round(_execution_time, 2)) + " secs"
