@@ -1,9 +1,4 @@
-import os
-import sys
-
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath + "/../../")
-from pytest_html_reporter2.html_reporter import HTMLReporter  # noqa
+from pytest_html_reporter2.html_reporter import HTMLReporter
 
 
 def test_report_path():

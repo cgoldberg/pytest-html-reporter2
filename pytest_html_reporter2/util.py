@@ -67,7 +67,7 @@ def max_rerun():
 
 
 def screenshot(data=None):
-    from pytest_html_reporter.html_reporter import HTMLReporter
+    from pytest_html_reporter2.html_reporter import HTMLReporter
 
     ConfigVars.screen_base = HTMLReporter.base_path
     ConfigVars.screen_img = Image.open(BytesIO(data))
