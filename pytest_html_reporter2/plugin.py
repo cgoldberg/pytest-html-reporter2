@@ -1,3 +1,4 @@
+import pytest
 from pytest_html_reporter2.html_reporter import HTMLReporter
 from pytest_html_reporter2.util import clean_screenshots, custom_title
 
@@ -41,3 +42,4 @@ def pytest_configure(config):
 
     config._html = HTMLReporter(path, archive_count, config)
     config.pluginmanager.register(config._html)
+    pytest.base_path = config._html.report_path[0]

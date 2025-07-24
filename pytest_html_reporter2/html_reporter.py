@@ -21,7 +21,7 @@ from pytest_html_reporter2.time_converter import time_converter
 from pytest_html_reporter2.util import generate_suite_highlights, max_rerun, suite_highlights
 
 
-class HTMLReporter(object):
+class HTMLReporter:
     def __init__(self, path, archive_count, config):
         self.json_data = {
             "content": {
@@ -87,6 +87,7 @@ class HTMLReporter(object):
                 path = "."
             logfile = os.path.expanduser(os.path.expandvars(path))
             HTMLReporter.base_path = os.path.abspath(logfile)
+            self.base_path = os.path.abspath(logfile)
             return os.path.abspath(logfile), self.path.split("/")[-1]
         else:
             logfile = os.path.expanduser(os.path.expandvars(self.path))
@@ -94,8 +95,7 @@ class HTMLReporter(object):
             return os.path.abspath(logfile), "pytest_html_report.html"
 
     def remove_old_archives(self):
-        archive_dir = os.path.abspath(os.path.expanduser(os.path.expandvars(self.path))) + "/archive"
-
+        archive_dir = os.path.join(self.base_path, "archive")
         if self.archive_count != "":
             if int(self.archive_count) == 0:
                 if os.path.isdir(archive_dir):

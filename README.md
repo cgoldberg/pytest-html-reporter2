@@ -4,7 +4,7 @@
 ### pytest plugin to generate static HTML reports
 
 
-![logo](logo.jpg)
+
 
 
 Features
@@ -66,6 +66,7 @@ Alternate option is to add this snippet in the ``pytest.ini`` file::
 
 screenshots on failure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: screenshots don't currently work when called from pytest fixtures.
 
 Import ``attach`` from the library and call it with the selenium command as given below::
 
@@ -77,6 +78,8 @@ Import ``attach`` from the library and call it with the selenium command as give
 .. image:: https://img.shields.io/badge/Attach_screenshot_snippet-000?style=for-the-badge&logo=ko-fi&logoColor=white
    :target: https://gist.github.com/prashanth-sams/f0cc2102fc3619b11748e0cbda22598b
 
+
+![logo](logo.jpg)
 
 .. image:: https://i.imgur.com/1HSYkdC.gif
 
