@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="pytest-html-reporter",
-    version="0.3.0",
+    version="0.3.0dev0",
     author="Prashanth Sams",
     author_email="sams.prashanth@gmail.com",
     maintainer="Prashanth Sams",
@@ -25,7 +25,7 @@ setup(
     long_description=read("README.rst"),
     keywords=["pytest", "py.test", "html", "reporter", "report"],
     packages=find_packages(),
-    python_requires=">=3.5",
+    python_requires=">=3.9",
     install_requires=["pytest"],
     classifiers=[
         "Framework :: Pytest",
