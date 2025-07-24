@@ -36,9 +36,11 @@ def html_page(cls):
     def content(self):
         if not self.__content:
             fname_list = os.path.abspath(__file__).split(os.path.sep)
-            fname = os.path.join(*fname_list[:rindex(fname_list, "pytest-html-reporter") + 1]) \
-                if (sys.platform.startswith("win") or sys.platform == "cygwin") and not os.environ.get("MSYSTEM") \
-                else os.path.join(os.path.sep, *fname_list[:rindex(fname_list, "pytest-html-reporter") + 1])
+            fname = (
+                os.path.join(*fname_list[: rindex(fname_list, "pytest-html-reporter") + 1])
+                if (sys.platform.startswith("win") or sys.platform == "cygwin") and not os.environ.get("MSYSTEM")
+                else os.path.join(os.path.sep, *fname_list[: rindex(fname_list, "pytest-html-reporter") + 1])
+            )
             with open(os.path.join(fname, "html", f"{cls.__doc__.strip()}.html")) as html:
                 self.__content = html.read()
 

@@ -12,10 +12,10 @@ import pytest
 from html_page.archive_body import ArchiveBody
 from html_page.archive_row import ArchiveRow
 from html_page.floating_error import FloatingError
+from html_page.row import Row
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from html_page.row import Row
 from pytest_html_reporter.const_vars import ConfigVars
 from pytest_html_reporter.time_converter import time_converter
 from pytest_html_reporter.util import generate_suite_highlights, max_rerun, suite_highlights
@@ -655,7 +655,7 @@ class HTMLReporter(object):
                     archive_row_text.acount = str(len(f) - i)
 
                 adate = datetime.strptime(
-                    data["date"].split(None, 1)[0][:1 + 2:] + " " + data["date"].split(None, 1)[1].replace(",", ""),
+                    data["date"].split(None, 1)[0][: 1 + 2 :] + " " + data["date"].split(None, 1)[1].replace(",", ""),
                     "%b %d %Y",
                 )
 
@@ -713,7 +713,7 @@ class HTMLReporter(object):
         with open(f2[0]) as json_file:
             data = json.load(json_file)
             adate = datetime.strptime(
-                data["date"].split(None, 1)[0][:1 + 2:] + " " + data["date"].split(None, 1)[1].replace(",", ""),
+                data["date"].split(None, 1)[0][: 1 + 2 :] + " " + data["date"].split(None, 1)[1].replace(",", ""),
                 "%b %d %Y",
             )
             atime = "".join(list(filter(lambda x: ":" in x, time.ctime(float(data["start_time"])).split(" ")))).rsplit(
@@ -739,7 +739,7 @@ class HTMLReporter(object):
                 data = json.load(json_file)
 
                 adate = datetime.strptime(
-                    data["date"].split(None, 1)[0][:1 + 2:] + " " + data["date"].split(None, 1)[1].replace(",", ""),
+                    data["date"].split(None, 1)[0][: 1 + 2 :] + " " + data["date"].split(None, 1)[1].replace(",", ""),
                     "%b %d %Y",
                 )
                 atime = "".join(

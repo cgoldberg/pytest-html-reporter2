@@ -6,10 +6,10 @@ from bs4 import BeautifulSoup
 from html_page.archive_body import ArchiveBody
 from html_page.archive_row import ArchiveRow
 from html_page.floating_error import FloatingError
+from html_page.row import Row
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from html_page.row import Row
 from tests.unit.helper import get_random_number, get_random_string
 
 
