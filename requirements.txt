@@ -1,9 +1,5 @@
+bs4
+coveralls
 pytest
 pytest-cov
-coveralls
-selenium
-twine
-pytest-xdist
-beautifulsoup4
 pytest-rerunfailures
-Pillow
