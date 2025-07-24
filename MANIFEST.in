@@ -1,9 +1,0 @@
-include LICENSE
-include README.rst
-
-global-include *.py
-prune tests/
-prune test_draft/
-prune venv/
-exclude CHANGELOG.txt
-exclude requirements.txt

@@ -1,11 +1,11 @@
+import datetime
 import os
 import sys
 
 myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, myPath + "/../../")
-import datetime  # noqa
 
-from pytest_html_reporter.time_converter import clamp_to_twelve, is_midnight, time_converter  # noqa
+from pytest_html_reporter2.time_converter import clamp_to_twelve, is_midnight, time_converter  # noqa
 
 
 def test_time_converter():

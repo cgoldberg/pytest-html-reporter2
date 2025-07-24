@@ -1,5 +1,5 @@
-from pytest_html_reporter.html_reporter import HTMLReporter
-from pytest_html_reporter.util import clean_screenshots, custom_title
+from pytest_html_reporter2.html_reporter import HTMLReporter
+from pytest_html_reporter2.util import clean_screenshots, custom_title
 
 
 def pytest_addoption(parser):

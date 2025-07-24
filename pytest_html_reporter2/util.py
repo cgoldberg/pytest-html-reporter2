@@ -6,7 +6,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from pytest_html_reporter.const_vars import ConfigVars
+from pytest_html_reporter2.const_vars import ConfigVars
 
 
 def suite_highlights(data):

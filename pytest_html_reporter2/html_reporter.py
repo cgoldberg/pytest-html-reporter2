@@ -16,9 +16,9 @@ from html_page.row import Row
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from pytest_html_reporter.const_vars import ConfigVars
-from pytest_html_reporter.time_converter import time_converter
-from pytest_html_reporter.util import generate_suite_highlights, max_rerun, suite_highlights
+from pytest_html_reporter2.const_vars import ConfigVars
+from pytest_html_reporter2.time_converter import time_converter
+from pytest_html_reporter2.util import generate_suite_highlights, max_rerun, suite_highlights
 
 
 class HTMLReporter(object):

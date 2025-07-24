@@ -1,39 +1,15 @@
-=====================
-pytest-html-reporter
-=====================
-
-.. image:: https://badges.gitter.im/prashanth-sams/pytest-html-reporter.svg
-   :alt: Join the chat at https://gitter.im/prashanth-sams/pytest-html-reporter
-   :target: https://gitter.im/prashanth-sams/pytest-html-reporter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-
-.. image:: https://badge.fury.io/py/pytest-html-reporter.svg
-    :target: https://badge.fury.io/py/pytest-html-reporter
-    :alt: PyPI version
-
-.. image:: https://travis-ci.com/prashanth-sams/pytest-html-reporter.svg?branch=master
-    :target: https://travis-ci.com/prashanth-sams/pytest-html-reporter
-    :alt: Build Status
-
-.. image:: https://coveralls.io/repos/github/prashanth-sams/pytest-html-reporter/badge.svg?branch=master
-    :target: https://coveralls.io/github/prashanth-sams/pytest-html-reporter?branch=master
-
-.. image:: https://pepy.tech/badge/pytest-html-reporter
-    :target: https://pepy.tech/project/pytest-html-reporter
-    :alt: Downloads
+# pytest-html-reporter2
 
 
-..
-
-        Generates a static html report based on ``pytest`` framework
+### pytest plugin to generate static HTML reports
 
 
-.. image:: https://i.imgur.com/4TYia5j.png
-   :alt: pytest-html-reporter
+![logo](logo.jpg)
+
 
 Features
 ------------
 * Generic information
-
   - Overview
   - Trends
   - Suite Highlights
@@ -53,7 +29,7 @@ Installation
 Usage
 ------------
 
-By default, the filename used is ``pytest_html_reporter.html`` and path chosen is ``report``; you can skip both or
+By default, the filename used is ``pytest_html_report.html`` and path chosen is ``report``; you can skip both or
 either one of them if not needed::
 
     $ pytest tests/
@@ -93,7 +69,7 @@ screenshots on failure
 
 Import ``attach`` from the library and call it with the selenium command as given below::
 
-    from pytest_html_reporter import attach
+    from pytest_html_reporter2 import attach
 
     ...
     attach(data=self.driver.get_screenshot_as_png())

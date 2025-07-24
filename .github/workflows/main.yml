@@ -1,22 +1,50 @@
+name: CI
+
 on:
   pull_request:
     branches: [ master ]
-name: CI
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
+
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: cclauss/Find-Python-syntax-errors-action@master
-  unit-test:
+      - name: Checkout source tree
+        uses: actions/checkout@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install
+        run: |
+          python3 -m venv venv
+          source ./venv/bin/activate
+          pip install --upgrade pip
+          pip install --group lint .
+      - name: Run Linters
+        run: tox
+        env:
+          TOXENV: lint-ci
+
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Dependencies
+      - name: Checkout source tree
+        uses: actions/checkout@v4
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install
         run: |
-          pip3 install -r requirements.txt
+          python3 -m venv venv
+          source ./venv/bin/activate
+          pip install --upgrade pip
+          pip install --group test .
       - name: Run Tests
-        run: |
-          python3 -m pytest --cov ./pytest_html_reporter/ tests/unit/
+        run: tox
+        env:
+          TOXENV: py39

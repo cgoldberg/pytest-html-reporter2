@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="pytest-html-reporter2"
+version="0.3.1dev0"
+description = "pytest plugin to generate static HTML reports"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Prashanth Sams"}]
+maintainers = [{name = "Corey Goldberg"}]
+readme = "README.md"
+requires-python = ">=3.9"
+keywords=["pytest", "testing", "html", "report", "reporter"]
+classifiers = [
+    "Framework :: Pytest",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "pytest>=8.0",
+    "pillow>=10.0",
+]
+
+[project.urls]
+homepage = "https://github.com/cgoldberg/pytest-html-reporter2"
+source = "https://github.com/cgoldberg/pytest-html-reporter2"
+download = "https://pypi.org/project/pytest-html-reporter2"
+
+[project.entry-points.pytest11]
+reporter = "pytest_html_reporter2.plugin"
+
+[tool.setuptools]
+py-modules = ["pytest_html_reporter2", "html_page"]
+
+[dependency-groups]
+lint = [
+    "black==25.1.0",
+    "flake8==7.3.0",
+    "flake8-noqa==1.4.0",
+    "isort==6.0.1",
+]
+test = [
+    "beautifulsoup4==4.13.4",
+    "pytest-rerunfailures==15.1",
+    "tox==4.28.1",
+]
+validate = [
+    "packaging==25.0",
+    "validate-pyproject==0.24.1",
+]

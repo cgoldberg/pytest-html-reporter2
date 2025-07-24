@@ -827,7 +827,7 @@
                     </div>
 
                     <div class="col-md-6 card" style="margin-left: 0.75%;">
-                      <a href="#" id="download" download="pytest-html-reporter.pdf" target="_self">
+                      <a href="#" id="download" download="pytest-html-reporter2.pdf" target="_self">
                         <i class="fa fa-download" style="color:dimgrey; font-size: 1.75rem; padding-top: 2%; float: right; position: fixed; right: 50px;"></i>
                       </a>
                       <div style="text-align: center;">
@@ -879,7 +879,7 @@
 
                 <div class="row">
                     <div class="col-md-12" style="width:auto;">
-                        <p class="text-muted" style="text-align:center;font-size:9px"> <a href="https://github.com/prashanth-sams/pytest-html-reporter" target="_blank">pytest-html-reporter</a>
+                        <p class="text-muted" style="text-align:center;font-size:9px"> <a href="https://github.com/cgoldberg/pytest-html-reporter2" target="_blank">pytest-html-reporter2</a>
                         </p>
                     </div>
                 </div>
@@ -1493,7 +1493,7 @@
                 .then(function (blob) {
                     var pdf = new jsPDF('l', 'pt', [$('#dashboard').width()+20, $('#dashboard').height()]);
                     pdf.addImage(blob, 'PNG', 10, 10, $('#dashboard').width(), $('#dashboard').height());
-                    pdf.save("pytest_html_reporter.pdf");
+                    pdf.save("pytest-html-reporter2.pdf");
                 });
             });
         </script>
