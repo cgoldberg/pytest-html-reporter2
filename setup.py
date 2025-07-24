@@ -26,7 +26,7 @@ setup(
     keywords=["pytest", "py.test", "html", "reporter", "report"],
     packages=find_packages(),
     python_requires=">=3.9",
-    install_requires=["pytest"],
+    install_requires=["pytest", "pillow"],
     classifiers=[
         "Framework :: Pytest",
         "Topic :: Software Development :: Testing",
