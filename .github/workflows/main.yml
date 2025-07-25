@@ -23,7 +23,7 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install --group lint .
+          pip install --group dev .
       - name: Run linters
         run: |
           source venv/bin/activate
@@ -44,7 +44,7 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install --group test .
+          pip install --group dev .
       - name: Run tests
         run: |
           source venv/bin/activate
