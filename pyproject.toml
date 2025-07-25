@@ -36,10 +36,10 @@ source = "https://github.com/cgoldberg/pytest-html-reporter2"
 download = "https://pypi.org/project/pytest-html-reporter2"
 
 [project.entry-points.pytest11]
-reporter = "pytest_html_reporter2.plugin"
+pytest_html_reporter2 = "pytest_html_reporter2.plugin"
 
 [tool.setuptools]
-py-modules = ["pytest_html_reporter2", "html_page"]
+packages = ["pytest_html_reporter2", "html_page"]
 
 [dependency-groups]
 lint = [

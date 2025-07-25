@@ -286,7 +286,7 @@ class HTMLReporter:
                 test_row_text.floating_error_text = str(floating_error_text)
                 test_row_text.full_msg = str(ConfigVars._current_error)
 
-            logging.warning(f"Test Metrics Row: {test_row_text}")
+            logging.debug(f"Test Metrics Row: {test_row_text}")
 
             ConfigVars._test_metrics_content += str(test_row_text)
 

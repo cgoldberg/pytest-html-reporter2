@@ -1,92 +1,84 @@
 # pytest-html-reporter2
 
+### [pytest][pytest-home] [plugin][pytest-plugins] to generate static HTML reports
 
-### pytest plugin to generate static HTML reports
+---
 
+- Development: [GitHub][github-repo]
+- Download/Install: [PyPI][pypi-page]
+- License: [MIT][mit-license]
 
+_This is a fork of [pytest-html-reporter][pypi-parent-page] (by [Prashanth Sams][github-parent-repo])
+with some bug fixes, improvements, and updates to work with newer versions of pytest._
 
+![logo](https://i.imgur.com/4TYia5j.png)
 
+----
 
-Features
-------------
-* Generic information
+## Features:
+
+- Generic information
   - Overview
   - Trends
-  - Suite Highlights
+  - Suite highlights
   - Test suite details
-* Archives / History
-* Screenshots on failure
-* Test Rerun support
+- Archives / History
+- Screenshots
+- Test re-run support
 
-Installation
-------------
+## Installation:
 
-.. code-block:: console
+latest release:
 
-    $ pip install pytest-html-reporter2
+```
+pip install pytest-html-reporter2
+```
 
+current development version:
 
-Usage
-------------
+```
+pip install git+https://github.com/cgoldberg/pytest-html-reporter2.git@update
+```
 
-By default, the filename used is ``pytest_html_report.html`` and path chosen is ``report``; you can skip both or
-either one of them if not needed::
+## Usage:
 
-    $ pytest tests/
+Once you have this plugin installed, you just run your tests with pytest (`pytest` or `python -m pytest`)
+as you would normally. It will save a report named `pytest_html_report.html` in the currect directory.
 
+The following pytest arguments can be used:
 
-..
+- `--html-report`: path where report and archives are generated (can be a directory or file name)
+  - `pytest --html-report=./report`
+  - `pytest --html-report=./report/report.html`
+- `--title`: customize report title
+  -  `pytest --title="Test Reprt"`
+- `--archive-count`: maximum build count to display in the archives section
+  - `pytest --archive-count=10`
 
-        Custom path, filename, and title
+## Example:
 
-Add ``--html-report`` tag followed by path location and filename to customize the report location and filename::
+![example](https://i.imgur.com/1HSYkdC.gif)
 
-    $ pytest tests/ --html-report=./report
-    $ pytest tests/ --html-report=./report/report.html
+## Demo:
 
-Add ``--title`` tag followed by the report title::
+If you want to try it out, there are several example tests in the GitHub repo. This will clone the repo,
+create a virtual environment, install the plugin from source, and run the example tests:
 
-    $ pytest tests/ --html-report=./report --title='PYTEST REPORT'
+```
+git clone https://github.com/cgoldberg/pytest-html-reporter2.git
+cd pytest-html-reporter2
+python3 -m venv venv
+source venv/bin/activate
+pip install .
+pytest tests/functional
+```
 
-Add ``--archive-count`` tag followed by an integer to limit showing the number of builds in the ``Archives`` section::
+When it completes, you can view `pytest_html_report.html`  in your browser.
 
-    $ pytest tests/ --archive-count 7
-    $ pytest tests/ --html-report=./report --archive-count 7
-
-..
-
-        pytest.ini
-
-Alternate option is to add this snippet in the ``pytest.ini`` file::
-
-    [pytest]
-    addopts = -vs -rf --html-report=./report --title='PYTEST REPORT'
-
-**Note:** If you fail to provide ``--html-report`` tag, it consider your project's home directory as the base
-
-screenshots on failure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-note: screenshots don't currently work when called from pytest fixtures.
-
-Import ``attach`` from the library and call it with the selenium command as given below::
-
-    from pytest_html_reporter2 import attach
-
-    ...
-    attach(data=self.driver.get_screenshot_as_png())
-
-.. image:: https://img.shields.io/badge/Attach_screenshot_snippet-000?style=for-the-badge&logo=ko-fi&logoColor=white
-   :target: https://gist.github.com/prashanth-sams/f0cc2102fc3619b11748e0cbda22598b
-
-
-![logo](logo.jpg)
-
-.. image:: https://i.imgur.com/1HSYkdC.gif
-
-
-Is there a demo available for this gem?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Yes, you can use this demo as an example, https://github.com/prashanth-sams/pytest-html-reporter::
-
-    $ pytest tests/functional/
+[github-repo]: https://github.com/cgoldberg/pytest-html-reporter2
+[pypi-page]: https://pypi.org/project/pytest-html-reporter2
+[github-parent-repo]: https://github.com/prashanth-sams/pytest-html-reporter
+[pypi-parent-page]: https://pypi.org/project/pytest-html-reporter
+[mit-license]: https://raw.githubusercontent.com/cgoldberg/pytest-html-reporter2/refs/heads/master/LICENSE
+[pytest-home]: https://pytest.org
+[pytest-plugins]: https://docs.pytest.org/en/stable/how-to/plugins.html

@@ -66,7 +66,7 @@ def max_rerun():
         return None
 
 
-def screenshot(path, data=None):
+def screenshot(path=os.getcwd(), data=None):
     ConfigVars.screen_base = path
     ConfigVars.screen_img = Image.open(BytesIO(data))
 

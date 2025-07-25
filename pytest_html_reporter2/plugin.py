@@ -1,4 +1,5 @@
 import pytest
+
 from pytest_html_reporter2.html_reporter import HTMLReporter
 from pytest_html_reporter2.util import clean_screenshots, custom_title
 
