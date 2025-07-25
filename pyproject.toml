@@ -12,7 +12,7 @@ authors = [{name = "Prashanth Sams"}]
 maintainers = [{name = "Corey Goldberg"}]
 readme = "README.md"
 requires-python = ">=3.9"
-keywords=["pytest", "plugin", "html", "test", "testing", "report", "reporter"]
+keywords=["pytest", "plugin", "html", "automation", "test", "testing", "report", "reporting"]
 classifiers = [
     "Framework :: Pytest",
     "Operating System :: OS Independent",
