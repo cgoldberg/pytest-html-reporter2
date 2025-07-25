@@ -12,7 +12,7 @@ authors = [{name = "Prashanth Sams"}]
 maintainers = [{name = "Corey Goldberg"}]
 readme = "README.md"
 requires-python = ">=3.9"
-keywords=["pytest", "testing", "html", "report", "reporter"]
+keywords=["pytest", "plugin", "html", "test", "testing", "report", "reporter"]
 classifiers = [
     "Framework :: Pytest",
     "Operating System :: OS Independent",
@@ -45,7 +45,6 @@ packages = ["pytest_html_reporter2", "html_page"]
 lint = [
     "black==25.1.0",
     "flake8==7.3.0",
-    "flake8-noqa==1.4.0",
     "isort==6.0.1",
 ]
 test = [
