@@ -1,14 +1,17 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -21,14 +24,13 @@ jobs:
       - name: Install
         run: |
           python3 -m venv venv
-          source ./venv/bin/activate
+          source venv/bin/activate
           pip install --upgrade pip
           pip install --group lint .
-      - name: Run Linters
+      - name: Run linters
         run: tox
         env:
           TOXENV: lint-ci
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -41,10 +43,10 @@ jobs:
       - name: Install
         run: |
           python3 -m venv venv
-          source ./venv/bin/activate
+          source venv/bin/activate
           pip install --upgrade pip
           pip install --group test .
-      - name: Run Tests
+      - name: Run tests
         run: tox
         env:
           TOXENV: py39
