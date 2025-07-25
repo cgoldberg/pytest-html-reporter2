@@ -42,17 +42,22 @@ pytest_html_reporter2 = "pytest_html_reporter2.plugin"
 packages = ["pytest_html_reporter2", "html_page"]
 
 [dependency-groups]
+dev = [
+    "tox==4.28.1",
+]
 lint = [
     "black==25.1.0",
     "flake8==7.3.0",
     "isort==6.0.1",
+    {include-group = "dev"}
 ]
 test = [
     "beautifulsoup4==4.13.4",
     "pytest-rerunfailures==15.1",
-    "tox==4.28.1",
+    {include-group = "dev"}
 ]
 validate = [
     "packaging==25.0",
     "validate-pyproject==0.24.1",
+    {include-group = "dev"}
 ]
