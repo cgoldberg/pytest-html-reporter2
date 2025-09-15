@@ -26,37 +26,34 @@ def html_page(cls):
         res = self.content
         for inln in self.inline_attributes:
             res = res.replace(f"%({inln})%", getattr(self, inln))
-
         for cd_snpt in self.inline_code_snippets:
             res = res.replace(f"$({cd_snpt})$", eval(cd_snpt))
-
         return res
 
     @property
     def content(self):
         if not self.__content:
-            fname_list = os.path.abspath(__file__).split(os.path.sep)
-            fname = os.path.join(*fname_list[:rindex(fname_list, "pytest-html-reporter") + 1]) \
-                if sys.platform.startswith("win") or sys.platform == "cygwin" \
-                else os.path.join(os.path.sep, *fname_list[:rindex(fname_list, "pytest-html-reporter") + 1])
-
+            fname_parts = os.path.abspath(__file__).split(os.sep)
+            path_parts = fname_parts[: rindex(fname_parts, "pytest-html-reporter2") + 1]
+            if sys.platform.startswith("win") or sys.platform == "cygwin":
+                path_parts[0] = f"{path_parts[0]}{os.sep}"
+                fname = os.path.join(*path_parts)
+            else:
+                fname = os.path.join(os.sep, *path_parts)
             with open(os.path.join(fname, "html", f"{cls.__doc__.strip()}.html")) as html:
                 self.__content = html.read()
-
         return self.__content
 
     @property
     def inline_attributes(self):
         if not self.__inline_attributes:
-            self.__inline_attributes = re.findall("%\((.+?)\)%", self.content)
-
+            self.__inline_attributes = re.findall(r"%\((.+?)\)%", self.content)
         return self.__inline_attributes
 
     @property
     def inline_code_snippets(self):
         if not self.__inline_code_snippets:
-            self.__inline_code_snippets = re.findall("\$\((.+?)\)$", self.content)
-
+            self.__inline_code_snippets = re.findall(r"\$\((.+?)\)$", self.content)
         return self.__inline_code_snippets
 
     def format(self, **params):

@@ -19,8 +19,6 @@ def cleandir():
 class TestClass:
     def test_fixture_pass(self):
         print("executing tests x1")
-        pass
 
     def test_fixture_fail(self):
         print("executing tests x2")
-        pass

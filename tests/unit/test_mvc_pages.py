@@ -6,10 +6,10 @@ from bs4 import BeautifulSoup
 from html_page.archive_body import ArchiveBody
 from html_page.archive_row import ArchiveRow
 from html_page.floating_error import FloatingError
+from html_page.row import Row
 from html_page.screenshot_details import ScreenshotDetails
 from html_page.suite_row import SuiteRow
 from html_page.template import HtmlTemplate
-from html_page.test_row import TestRow
 from tests.unit.helper import get_random_number, get_random_string
 
 
@@ -37,7 +37,7 @@ def test_archive_body():
         error=error,
         status=status,
         acount=acount,
-        iloop=iloop
+        iloop=iloop,
     )
 
     soup = BeautifulSoup(str(_archive_body_text), "html.parser")
@@ -85,8 +85,8 @@ def test_archive_row():
     soup = BeautifulSoup(str(archive_row), "html.parser")
     assert soup.find("a", href=f"#list-item-{acount}")
     assert soup.find("i")["class"] == ["fa", f"fa-{astate}"]
-    assert soup.findAll("span")[0].text.strip() == astatus
-    assert soup.findAll("span")[1].text.strip() == adate
+    assert soup.find_all("span")[0].text.strip() == astatus
+    assert soup.find_all("span")[1].text.strip() == adate
 
 
 def test_floating_error():
@@ -114,8 +114,7 @@ def test_screenshot_details():
     tc = get_random_string()
     te = get_random_string()
 
-    screenshot_details = ScreenshotDetails(ts=ts, tc=tc, te=te,
-                                           screen_name=screen_name)
+    screenshot_details = ScreenshotDetails(ts=ts, tc=tc, te=te, screen_name=screen_name)
     soup = BeautifulSoup(str(screenshot_details), "html.parser")
 
     screenshot_link = soup.find("a", class_="video")
@@ -125,16 +124,16 @@ def test_screenshot_details():
     assert screenshot_link["data-caption"] == f"SUITE: {ts} :: SCENARIO: {tc}"
 
     tc_row = soup.find(class_="video-hover-desc video-hover-small")
-    assert tc_row.findAll("span")[0].text.strip() == tc
-    assert tc_row.findAll("span")[1].text.strip() == te
+    assert tc_row.find_all("span")[0].text.strip() == tc
+    assert tc_row.find_all("span")[1].text.strip() == te
 
     ts_p = soup.find("p", class_="text-desc")
-    assert re.search(f"{ts}[\n\s]+{te}", ts_p.text.strip()), ts_p.text.strip()
+    assert re.search(rf"{ts}[\n\s]+{te}", ts_p.text.strip()), ts_p.text.strip()
     assert ts_p.find("strong").text.strip() == ts
 
     video_description = soup.find("div", id="Video-desc-01")
     assert video_description.find("h2").text.strip() == tc
-    assert re.search(f"{ts}[\n\s]+{te}", video_description.find("p").text.strip())
+    assert re.search(rf"{ts}[\n\s]+{te}", video_description.find("p").text.strip())
     assert video_description.find("strong").text.strip() == ts
 
 
@@ -148,11 +147,12 @@ def test_suite_row():
     serror = str(get_random_number())
     srerun = str(get_random_number())
 
-    suite_row = SuiteRow(sname=sname, spass=spass, sfail=sfail, sskip=sskip, sxpass=sxpass, sxfail=sxfail,
-                         serror=serror, srerun=srerun)
+    suite_row = SuiteRow(
+        sname=sname, spass=spass, sfail=sfail, sskip=sskip, sxpass=sxpass, sxfail=sxfail, serror=serror, srerun=srerun
+    )
 
     soup = BeautifulSoup(str(suite_row), "html.parser")
-    for node, expected in zip(soup.findAll("td"), [sname, spass, sfail, sskip, sxpass, sxfail, serror, srerun]):
+    for node, expected in zip(soup.find_all("td"), [sname, spass, sfail, sskip, sxpass, sxfail, serror, srerun]):
         assert node.text.strip() == expected
 
 
@@ -164,15 +164,16 @@ def test_test_row():
     msg = get_random_string()
     floating_error_text = get_random_string()
 
-    test_row = TestRow(sname=sname, name=name, stat=stat, dur=dur, msg=msg, floating_error_text=floating_error_text)
+    test_row = Row(sname=sname, name=name, stat=stat, dur=dur, msg=msg, floating_error_text=floating_error_text)
     soup = BeautifulSoup(str(test_row), "html.parser")
 
-    cells = soup.findAll("td")
+    cells = soup.find_all("td")
 
     for node, expected in zip(cells[:-1], [sname, name, stat, dur]):
         assert node.text.strip() == expected
 
-    assert re.search(f"{msg}[\s\n]*{floating_error_text}", cells[-1].text.strip())
+    assert re.search(rf"{msg}[\s\n]*{floating_error_text}", cells[-1].text.strip())
+
 
 def test_template():
     custom_logo = get_random_string()
@@ -250,19 +251,19 @@ def test_template():
         tpass=tpass,
         tfail=tfail,
         tskip=tskip,
-        attach_screenshot_details=attach_screenshot_details
+        attach_screenshot_details=attach_screenshot_details,
     )
 
     soup = BeautifulSoup(str(template_page), "html.parser")
 
-    ### Checking if code-behind parts are really interpolated
+    # Checking if code-behind parts are really interpolated
 
-    last_style_block = soup.findAll("style")[-1]
+    last_style_block = soup.find_all("style")[-1]
     style_block = f""".progress-bar.downloading {{
                     background: -webkit-linear-gradient(left, #fc6665 {max_failure_percent}%,#50597b {max_failure_percent}%); /* Chrome10+,Safari5.1+ */
                     background: -ms-linear-gradient(left, #fc6665 {max_failure_percent}%,#50597b {max_failure_percent}%); /* IE10+ */
                     background: linear-gradient(to right, #fc6665 {max_failure_percent}%,#50597b {max_failure_percent}%); /* W3C */
-                }}"""
+                }}"""  # noqa
 
     assert last_style_block.text.strip() == style_block
 
@@ -281,7 +282,7 @@ def test_template():
     total_count = soup.find("span", class_="total__count")
     assert total_count.text.strip() == total
 
-    test_metrics = soup.findAll("div", class_="footer-section__data")
+    test_metrics = soup.find_all("div", class_="footer-section__data")
     for metric, val in zip(test_metrics, (_pass, fail, skip, xpass, xfail, error, rerun)):
         assert metric.text.strip() == val
 
@@ -289,10 +290,18 @@ def test_template():
     assert re.search(f"Test Suite\\n\\s+{test_suite_length}", test_suite_length_label.text.strip())
 
     max_failure_dashboard = soup.find("div", class_="col-md-4 card border-left")
-    assert max_failure_dashboard.find("div", class_="tooltip bs-tooltip-top tooltip-dark").find("div", class_="tooltip-inner").text.strip() == max_failure_suite_name_final
-    assert max_failure_dashboard.find("p", class_="percentage").text.strip() == f"{max_failure_suite_count} /{max_failure_total_tests} Times"
+    assert (
+        max_failure_dashboard.find("div", class_="tooltip bs-tooltip-top tooltip-dark")
+        .find("div", class_="tooltip-inner")
+        .text.strip()
+        == max_failure_suite_name_final
+    )
+    assert (
+        max_failure_dashboard.find("p", class_="percentage").text.strip()
+        == f"{max_failure_suite_count} /{max_failure_total_tests} Times"
+    )
 
-    suite_metrics_table = soup.findAll("table", id="sm")
+    suite_metrics_table = soup.find_all("table", id="sm")
 
     for tbl in suite_metrics_table:
         assert tbl.find("tbody").text.strip() == suite_metrics_row
@@ -300,29 +309,39 @@ def test_template():
     archive_status_label = soup.find("div", id="list-example")
     assert archive_status_label.text.strip() == archive_status
 
-    archive_body_content_label = soup.find("div", id="archives").findAll("div")[-1]
+    archive_body_content_label = soup.find("div", id="archives").find_all("div")[-1]
     assert archive_body_content_label.text.strip() == archive_body_content
 
     attach_screenshot_details_label = soup.find("div", id="main-content").find("div").find("div")
     assert attach_screenshot_details_label.text.strip() == attach_screenshot_details
 
-    scripts = soup.findAll("script")
+    scripts = soup.find_all("script")
     assert [script for script in scripts if f"var x = parseInt({total});" in script.text]
-    assert [script for script in scripts if f"data: [{_pass}, {fail}, {skip}, {xpass}, {xfail}, {error}]," in script.text]
-    assert [script for script in scripts if f"var passPercent = Math.round(({_pass} / {total}) * 100)" in script.text]
-    assert [script for script in scripts if f"for(var i=0; i<={archive_count}; i++)" in script.text and f"var archives = {archives};" in script.text]
     assert [
-        script for script in scripts
-        if f"labels: {test_suites}," in script.text
-           and f"data: {test_suite_pass}" in script.text
-           and f"data: {test_suites_fail}" in script.text
-           and f"data: {test_suites_skip}" in script.text
-           and f"data: {test_suites_xpass}" in script.text
-           and f"data: {test_suites_xfail}" in script.text
-           and f"data: {test_suites_error}" in script.text
+        script for script in scripts if f"data: [{_pass}, {fail}, {skip}, {xpass}, {xfail}, {error}]," in script.text
     ]
-    assert [script for script in scripts if f"labels : {trends_label}," in script.text
-            and f"data : {tpass}" in script.text
-            and f"data : {tfail}" in script.text
-            and f"data : {tskip}" in script.text
-            ]
+    assert [script for script in scripts if f"var passPercent = Math.round(({_pass} / {total}) * 100)" in script.text]
+    assert [
+        script
+        for script in scripts
+        if f"for(var i=0; i<={archive_count}; i++)" in script.text and f"var archives = {archives};" in script.text
+    ]
+    assert [
+        script
+        for script in scripts
+        if f"labels: {test_suites}," in script.text
+        and f"data: {test_suite_pass}" in script.text
+        and f"data: {test_suites_fail}" in script.text
+        and f"data: {test_suites_skip}" in script.text
+        and f"data: {test_suites_xpass}" in script.text
+        and f"data: {test_suites_xfail}" in script.text
+        and f"data: {test_suites_error}" in script.text
+    ]
+    assert [
+        script
+        for script in scripts
+        if f"labels : {trends_label}," in script.text
+        and f"data : {tpass}" in script.text
+        and f"data : {tfail}" in script.text
+        and f"data : {tskip}" in script.text
+    ]

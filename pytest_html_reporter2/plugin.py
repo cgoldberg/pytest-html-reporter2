@@ -1,5 +1,7 @@
-from pytest_html_reporter.html_reporter import HTMLReporter
-from pytest_html_reporter.util import clean_screenshots, custom_title
+import pytest
+
+from pytest_html_reporter2.html_reporter import HTMLReporter
+from pytest_html_reporter2.util import clean_screenshots, custom_title
 
 
 def pytest_addoption(parser):
@@ -36,10 +38,9 @@ def pytest_configure(config):
 
     title = config.getoption("title")
     custom_title(title)
-    
+
     archive_count = config.getoption("archive_count")
 
     config._html = HTMLReporter(path, archive_count, config)
     config.pluginmanager.register(config._html)
-
-
+    pytest.base_path = config._html.report_path[0]

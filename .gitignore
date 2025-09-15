@@ -1,21 +1,74 @@
-.idea/
-venv/
-.DS_Store
-*/**/.DS_Store
-*/.DS_Store
-.pytest_cache/
-pytest_report.html
-pytest_html_reporter/__pycache__/
-pytest_html_reporter.egg-info/
-tests/__pycache__/
-dist/
-test_draft/
+archive/
+pytest_screenshots/
 report/
-__pycache__/
-.coverage
-archive
+test_draft/
+venv/
 output.json
 pytest_html_report.html
-pytest_screenshots
+
+# byte-compiled/optimized/DLLs
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# distribution/packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# test/coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
 coverage.xml
-build
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# PEP 582
+__pypackages__/
+
+# environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# PyPI configuration file
+.pypirc

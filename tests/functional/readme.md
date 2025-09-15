@@ -2,6 +2,7 @@
 > pytest exercises
 
 ### Feature
+
 - [x] Basic
 - [x] Fixture #mock-data
 - [x] UseFixture #background-teardown
@@ -15,6 +16,6 @@
 
 | Type                  | Command               |
 | --------------        | ---------             |
-| generic run           | `pytest -v -s pytest/test_yield_fixture.py` |
-| Run specific test case| `pytest -v -s pytest/test_yield_fixture.py::test_fail` |
-| Run tagged tests      | `pytest -v -s pytest/test_mark.py -m 'slow'` |
+| generic run           | `pytest -v -s tests/functional/test_yield_fixture.py` |
+| run specific test case| `pytest -v -s tests/functional/test_yield_fixture.py::test_fail` |
+| run tagged tests      | `pytest -v -s tests/functional/test_mark.py -m 'slow'` |
